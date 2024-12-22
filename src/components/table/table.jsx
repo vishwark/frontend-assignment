@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./style.css"; // Import the CSS file
+import "./style.css";
 
 const Table = ({ columns, rows }) => {
   const [currentIndex, setIndex] = useState(0);
@@ -23,11 +23,19 @@ const Table = ({ columns, rows }) => {
     }
   };
 
+  const updateStep = (step,isDisabled) => {
+    if(isDisabled) return;
+    setStep(step)
+  };
+
   // Disable logic
   const isPrevDisabled = currentIndex === 0;
   const isNextDisabled = currentIndex + step >= rows.length;
   const isFirstDisabled = currentIndex === 0;
   const isLastDisabled = currentIndex + step >= rows.length;
+
+  const isReduceStepDisabled = step<=5;
+  const isIncreaseStepDisabled = step>= 10;
 
   return (
     <div className="table-wrapper">
@@ -44,7 +52,7 @@ const Table = ({ columns, rows }) => {
         {/* Table Body */}
         <tbody>
           {currentPageRows.map((row, rowIndex) => (
-            <tr key={rowIndex}>
+            <tr key={rowIndex} colSpan={columns.length}>
               {row.map((columnVal, columnIndex) => (
                 <td key={columnIndex}>{columnVal}</td>
               ))}
@@ -55,7 +63,7 @@ const Table = ({ columns, rows }) => {
         {/* Table Footer */}
         <tfoot>
           <tr>
-            <td colSpan="2">
+            <td colSpan="2" className="table-footer__section1">
               <div className="table-footer-text">
                 Total rows per page: 
                 <img
@@ -102,6 +110,29 @@ const Table = ({ columns, rows }) => {
                   alt="Last"
                   className={`table-footer-items ${isLastDisabled ? "disabled" : ""}`}
                 />
+              </div>
+            </td>
+          </tr>
+          <tr>
+          <td colSpan="3" className="table-footer__section1--mob">
+              <div className="table-footer-text">
+                <span>Total rows per page: </span>
+                <img
+                    src="https://img.icons8.com/?size=100&id=11206&format=png&color=4caf50"
+                    onClick={() => updateStep(step-1,isReduceStepDisabled)}
+                    alt="minus"
+                    className={`table-footer-items ${isReduceStepDisabled? "disabled" : ""}`}
+                  />
+                {step}
+                <img
+                    src="https://img.icons8.com/?size=100&id=11255&format=png&color=4caf50"
+                    onClick={() => updateStep(step+1,isIncreaseStepDisabled)}
+                    alt="plus"
+                    className={`table-footer-items ${isIncreaseStepDisabled? "disabled" : ""}`}
+                  />
+              </div>
+              <div>
+                Page No :  {Math.floor(currentIndex/step+1)} / {Math.ceil(rows.length/step)}
               </div>
             </td>
           </tr>

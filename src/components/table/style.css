@@ -2,7 +2,7 @@
     margin-top: 20px;
     background-color: #1e1e1e; 
     border-radius: 8px;
-    overflow: hidden;
+    overflow: auto;
   }
   
 
@@ -74,5 +74,27 @@
   
   .table-footer-items:hover {
     transform: scale(1.1);
+  }
+  .table-footer__section1--mob {
+    display: none;
+  }
+
+  @media (max-width: 750px) {
+    .table-footer__section1 {
+        display: none;
+    }
+    .table-footer__section1--mob {
+        display: table-cell;
+    }
+    .table-footer-text {
+      color: #fff;
+      font-size: 16px;
+      display: flex;
+      justify-content: start;  /* You can also use 'flex-start' */
+      align-items: center;
+    }
+    .table-wrapper {
+       width: 90%;
+    }
   }
   
