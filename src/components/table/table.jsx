@@ -68,16 +68,16 @@ const Table = ({ columns, rows }) => {
                 Total rows per page: 
                 <img
                     src="https://img.icons8.com/?size=100&id=11206&format=png&color=4caf50"
-                    onClick={() => setStep((prev)=>prev-1)}
+                    onClick={() => updateStep(step-1,isReduceStepDisabled)}
                     alt="minus"
-                    className={`table-footer-items`}
+                    className={`table-footer-items ${isReduceStepDisabled? "disabled" : ""}`}
                   />
                 {step}
                 <img
                     src="https://img.icons8.com/?size=100&id=11255&format=png&color=4caf50"
-                    onClick={() => setStep((prev)=>prev+1)}
+                    onClick={() => updateStep(step+1,isIncreaseStepDisabled)}
                     alt="plus"
-                    className={`table-footer-items`}
+                    className={`table-footer-items ${isIncreaseStepDisabled? "disabled" : ""}`}
                   />
               </div>
               <div>
